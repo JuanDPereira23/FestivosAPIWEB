@@ -1,0 +1,37 @@
+<mat-toolbar color="primary">
+  <span class="toolbar-title">Consulta de Festivos</span>
+</mat-toolbar>
+
+<div class="festivos-container">
+  <mat-card>
+    <mat-card-header>
+      <div class="header-content">
+        <mat-icon class="icon-large">calendar_today</mat-icon>
+        <mat-card-title class="title-large">Festivos del Año</mat-card-title>
+      </div>
+    </mat-card-header>
+    <mat-card-content>
+      <form (ngSubmit)="consultarFestivos()">
+        <mat-form-field appearance="fill">
+          <mat-label>Selecciona un año</mat-label>
+          <input matInput type="number" [(ngModel)]="anioSeleccionado" name="anio" required min="1900" max="2100">
+        </mat-form-field>
+        <button mat-raised-button color="accent" class="consultar-button" type="submit">Consultar</button>
+      </form>
+
+      <div *ngIf="festivos && festivos.length > 0" class="resultados">
+        <mat-list>
+          <mat-list-item *ngFor="let festivo of festivos">
+            <mat-icon matListIcon>event</mat-icon>
+            <h4 matLine>{{ festivo.fecha | date: 'fullDate' }}</h4>
+            <p matLine>{{ festivo.descripcion }}</p>
+          </mat-list-item>
+        </mat-list>
+      </div>
+
+      <div *ngIf="festivos && festivos.length === 0" class="sin-resultados">
+        <p>No se encontraron festivos para el año seleccionado.</p>
+      </div>
+    </mat-card-content>
+  </mat-card>
+</div>
